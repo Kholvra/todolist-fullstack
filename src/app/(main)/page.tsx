@@ -1,4 +1,5 @@
-import Greet from "@/components/home-component/greet"
+import Header from "@/components/header"
+import Todos from "@/components/todos"
 import { auth } from "@/server/auth"
 import { redirect } from "next/navigation"
 
@@ -8,7 +9,12 @@ export default async function Home(){
     if(!session){
         redirect('/login')
     }
-    return <div>
-        <Greet/>
+    return <>    
+    <div>
+        <Header/>
     </div>
+    <div className="">
+        <Todos/>
+    </div>
+    </>
 }

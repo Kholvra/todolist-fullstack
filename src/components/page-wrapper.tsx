@@ -7,7 +7,7 @@ interface PageWrapperProps{
 export default function PageWrapper({children}:PageWrapperProps){
     return(
         <div className="h-screen w-screen">
-            <div className="size-full w-3/4 mx-auto">{children}</div>
+            <div className="size-full lg:w-1/3 mx-auto p-5">{children}</div>
         </div>
     )
 }
