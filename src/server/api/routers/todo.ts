@@ -1,41 +1,52 @@
 import { z } from "zod";
 
-import {
-  createTRPCRouter,
-  protectedProcedure,
-  publicProcedure,
-} from "@/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 
-export const postRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
+import { todoInput } from "@/types/todo-type";
+
+export const todoRouter = createTRPCRouter({
+  all: protectedProcedure.query(async ({ ctx }) => {
+    const allTodos = await ctx.db.todo.findMany({
+      where: {
+        userId: ctx.session.user.id,
+      },
+    });
+    return allTodos.map(({ id, text, done }) => ({ id, text, done }));
+  }),
 
   create: protectedProcedure
-    .input(z.object({ name: z.string().min(1) }))
+    .input(todoInput)
     .mutation(async ({ ctx, input }) => {
-      return ctx.db.post.create({
+      return ctx.db.todo.create({
         data: {
-          name: input.name,
-          createdBy: { connect: { id: ctx.session.user.id } },
+          text: input,
+          user: {
+            connect: {
+              id: ctx.session.user.id,
+            },
+          },
         },
       });
     }),
 
-  getLatest: protectedProcedure.query(async ({ ctx }) => {
-    const post = await ctx.db.post.findFirst({
-      orderBy: { createdAt: "desc" },
-      where: { createdBy: { id: ctx.session.user.id } },
-    });
+  toggle: protectedProcedure
+    .input(z.object({ id: z.string(), done: z.boolean() }))
+    .mutation(async ({ ctx, input: { id, done } }) => {
+      return ctx.db.todo.update({
+        where: {
+          id,
+        },
+        data: {
+          done,
+        },
+      });
+    }),
 
-    return post ?? null;
-  }),
-
-  getSecretMessage: protectedProcedure.query(() => {
-    return "you can now see this secret message!";
-  }),
+    delete: protectedProcedure.input(z.string()).mutation(async ({ctx,input})=>{
+      return ctx.db.todo.delete({
+        where:{
+          id: input
+        },
+      })
+    })
 });
