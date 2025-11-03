@@ -5,6 +5,7 @@ import CreateTodo from "./create-todo";
 import Todo from "./todo";
 import { useEffect, type ChangeEvent, type FormEvent } from "react";
 import { todoInput } from "@/types/todo-type";
+import LoadingScreen from "./loading";
 
 export default function Todos() {
   const { data: todos, isLoading, isError } = api.todo.all.useQuery();
@@ -71,7 +72,7 @@ export default function Todos() {
   });
 
   if (isLoading) {
-    return <span>LOADING</span>;
+    return <LoadingScreen/>
   }
 
   if (isError) {

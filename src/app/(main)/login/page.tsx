@@ -3,6 +3,7 @@
 import { useEffect, useState, type FormEvent } from "react";
 import { signIn, useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import LoadingScreen from "@/components/loading";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -35,11 +36,11 @@ export default function Login() {
   };
 
   if (status === "loading") {
-    return <span>loading</span>;
+    return <LoadingScreen/>
   }
 
   if (isLoading) {
-    return <span>loading</span>;
+    return <LoadingScreen/>
   }
 
   return (
