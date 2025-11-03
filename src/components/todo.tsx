@@ -20,7 +20,7 @@ export default function Todo({ todo, toggleDone, deleteTodo }: TodoProps) {
             type="checkbox"
             checked={done}
             onChange={(e) => toggleDone(e, id)}
-            className="peer absolute h-5 w-5 opacity-0"
+            className="peer absolute h-5 w-5 opacity-0 cursor-pointer"
           />
           <div className="flex h-5 w-5 cursor-pointer items-center justify-center rounded-md border border-neutral-200/40 peer-checked:border-black peer-checked:bg-black transition duration-200">
             {done ? (
@@ -34,7 +34,7 @@ export default function Todo({ todo, toggleDone, deleteTodo }: TodoProps) {
         <span className={`${done?'line-through text-neutral':''} break-all`}>{text}</span>
       </div>
       <button
-        className="hover:bg-danger-100 mx-2 rounded-lg p-2 transition duration-100"
+        className="hover:bg-danger-100 mx-2 rounded-lg p-2 transition duration-100 cursor-pointer"
         onClick={() => deleteTodo(id)}
       >
         <FaRegTrashAlt className="text-danger-700" />

@@ -63,7 +63,7 @@ export default function Login() {
         )}
         <button
           type="submit"
-          className={`rounded-lg bg-black p-2 py-2 ${email.length > 0 ? "opacity-100" : "opacity-50"} text-base md:text-lg text-white transition duration-300`}
+          className={`rounded-lg bg-black p-2 py-2 ${email.length > 0 ? "opacity-100" : "opacity-50"} text-base md:text-lg text-white transition duration-300 cursor-pointer`}
         >
           {!session ? "Sign In" : "Sign Out"}
         </button>
