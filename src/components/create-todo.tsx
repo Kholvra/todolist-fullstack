@@ -18,7 +18,7 @@ export default function CreateTodo({ handler }: CreateTodoProps) {
     >
       <input
         type="text"
-        className="grow p-4 mr-2 border border-neutral-400/30 rounded-lg focus:outline-none focus:ring-3 focus:ring-neutral-400/50 transition duration-500 ease-in-out shadow-xl"
+        className="grow p-4 mr-2 border border-neutral-400/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400/50 transition duration-500 ease-in-out shadow-xs"
         placeholder="What do you want to do?"
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}
