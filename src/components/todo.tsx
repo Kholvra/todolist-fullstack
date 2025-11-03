@@ -31,7 +31,7 @@ export default function Todo({ todo, toggleDone, deleteTodo }: TodoProps) {
           </div>
         </div>
 
-        <span>{text}</span>
+        <span className={`${done?'line-through text-neutral':''} break-all`}>{text}</span>
       </div>
       <button
         className="hover:bg-danger-100 mx-2 rounded-lg p-2 transition duration-100"

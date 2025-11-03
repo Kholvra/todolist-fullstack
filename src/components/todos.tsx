@@ -89,24 +89,27 @@ export default function Todos() {
   };
 
   return (
-    <div>
+    <>
+    
       <CreateTodo handler={createTodo} />
+    <div className="max-h-[calc(100vh-150px)] overflow-y-auto">
       {todos?.length ? (
         <ul>
           {todos.map((todo) => {
             return (
               <Todo
-                key={todo.id}
-                todo={todo}
-                toggleDone={toggleDone}
-                deleteTodo={deleteTodo}
+              key={todo.id}
+              todo={todo}
+              toggleDone={toggleDone}
+              deleteTodo={deleteTodo}
               />
             );
           })}
         </ul>
       ) : (
-        <span>Create your own first todo</span>
+        <span className="block text-center mt-20 text-neutral text-lg">No tasks yet. Add one to get started!</span>
       )}
     </div>
+      </>
   );
 }
