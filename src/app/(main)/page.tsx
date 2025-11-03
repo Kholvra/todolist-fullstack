@@ -9,12 +9,11 @@ export default async function Home(){
     if(!session){
         redirect('/login')
     }
-    return <>    
-    <div>
+    return <main>    
+    
         <Header email={session.user.email}/>
-    </div>
     <div className="">
         <Todos/>
     </div>
-    </>
+    </main>
 }

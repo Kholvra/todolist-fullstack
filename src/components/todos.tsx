@@ -32,12 +32,12 @@ export default function Todos() {
     onSettled: async () => {
       await trpc.todo.all.invalidate();
     },
-    onMutate: async ({id, done }) => {
+    onMutate: async ({ id, done }) => {
       await trpc.todo.all.cancel();
       const previousData = trpc.todo.all.getData();
       trpc.todo.all.setData(undefined, (prev) => {
         return prev?.map((todo) => {
-          if (todo.id===id) return { ...todo, done: done };
+          if (todo.id === id) return { ...todo, done: done };
           return todo;
         });
       });
@@ -88,28 +88,49 @@ export default function Todos() {
     mutateDelete(id);
   };
 
+  const listDoneTodos = todos?.filter((todo) => {
+    if (todo.done) {
+      return todo;
+    }
+  });
+
+  const listNotDoneTodos = todos?.filter((todo) => {
+    if (!todo.done) {
+      return todo;
+    }
+  });
+
   return (
     <>
-    
       <CreateTodo handler={createTodo} />
-    <div className="max-h-[calc(100vh-150px)] overflow-y-auto">
-      {todos?.length ? (
-        <ul>
-          {todos.map((todo) => {
-            return (
-              <Todo
-              key={todo.id}
-              todo={todo}
-              toggleDone={toggleDone}
-              deleteTodo={deleteTodo}
-              />
-            );
-          })}
-        </ul>
-      ) : (
-        <span className="block text-center mt-20 text-neutral text-lg">No tasks yet. Add one to get started!</span>
-      )}
-    </div>
-      </>
+      <div className="mt-10 mb-5 flex flex-row items-center justify-between">
+        <span className="text-lgpublic font-bold">{`My Tasks (${listNotDoneTodos?.length})`}</span>
+        {listDoneTodos?.length ? (
+          <span className="text-neutral text-sm md:text-base">{`${listDoneTodos?.length} completed`}</span>
+        ) : (
+          ""
+        )}
+      </div>
+      <div className="max-h-[calc(100vh-300px)] overflow-y-auto">
+        {todos?.length ? (
+          <ul>
+            {todos.map((todo) => {
+              return (
+                <Todo
+                  key={todo.id}
+                  todo={todo}
+                  toggleDone={toggleDone}
+                  deleteTodo={deleteTodo}
+                />
+              );
+            })}
+          </ul>
+        ) : (
+          <span className="text-neutral mt-20 block text-center text-lg">
+            No tasks yet. Add one to get started!
+          </span>
+        )}
+      </div>
+    </>
   );
 }

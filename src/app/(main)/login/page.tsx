@@ -43,12 +43,12 @@ export default function Login() {
   }
 
   return (
-    <div className="flex size-full flex-col items-center justify-center">
-      <h1 className="mb-2 text-4xl font-bold">Sign In</h1>
-      <span className="text-neutral mb-7">Use your email to continue</span>
+    <div className="flex size-full flex-col items-center md:justify-center text-center">
+      <h1 className="mb-2 text-2xl md:text-4xl font-bold">Sign In</h1>
+      <span className="text-sm md:text-base text-neutral mb-7">Use your email to continue</span>
       <form
         action=""
-        className="flex w-100 flex-col justify-center gap-3"
+        className="flex w-full max-w-100 flex-col justify-center gap-3"
         onSubmit={(e) => loginSubmitHandler(e)}
       >
         {!session ? (
@@ -63,12 +63,12 @@ export default function Login() {
         )}
         <button
           type="submit"
-          className={`rounded-lg bg-black p-2 py-2 ${email.length > 0 ? "opacity-100" : "opacity-50"} text-lg text-white transition duration-300`}
+          className={`rounded-lg bg-black p-2 py-2 ${email.length > 0 ? "opacity-100" : "opacity-50"} text-base md:text-lg text-white transition duration-300`}
         >
           {!session ? "Sign In" : "Sign Out"}
         </button>
       </form>
-      <span className="text-neutral mt-7">
+      <span className="text-sm md:text-base text-neutral mt-7">
         We&apos;ll send a login link to your email
       </span>
     </div>

@@ -34,21 +34,22 @@ export const authConfig = {
   providers: [
     Nodemailer({
       server: {
-        host: process.env.EMAIL_SERVER ?? "https://localhost:3000",
-        port: 587,
+        host: process.env.EMAIL_SERVER_HOST ?? "https://localhost:3000",
+        port: parseInt(process.env.EMAIL_SERVER_PORT ?? "587"),
         auth: {
-          user: "apikey",
-          pass: process.env.EMAIL_PASSWORD ?? "",
+          user: process.env.EMAIL_SERVER_USER ?? "",
+          pass: process.env.EMAIL_SERVER_PASSWORD ?? "",
         },
       },
       from: process.env.EMAIL_FROM ?? "default@default.com",
-      ...(process.env.NODE_ENV !== "production"
-        ? {
-            sendVerificationRequest({ url }) {
-              console.log("Login Link", url);
-            },
-          }
-        : {}),
+      
+      // ...(process.env.NODE_ENV !== "production"
+      //   ? {
+      //       sendVerificationRequest({ url }) {
+      //         console.log("Login Link", url);
+      //       },
+      //     }
+      //   : {}),
     }),
     /**
      * ...add more providers here.
@@ -71,7 +72,8 @@ export const authConfig = {
     }),
   },
   pages: {
-    signIn:'/login',
-    verifyRequest:'/verify'
-  }
+    signIn: "/login",
+    verifyRequest: "/verify",
+  },
+  trustHost: true
 } satisfies NextAuthConfig;
