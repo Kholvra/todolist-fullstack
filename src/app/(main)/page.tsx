@@ -11,7 +11,7 @@ export default async function Home(){
     }
     return <>    
     <div>
-        <Header/>
+        <Header email={session.user.email}/>
     </div>
     <div className="">
         <Todos/>

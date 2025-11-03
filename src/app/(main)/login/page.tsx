@@ -9,18 +9,26 @@ export default function Login(){
     const [email, setEmail] = useState('')
     const {data: session,status} = useSession()
     const router = useRouter()
+    const [isLoading,setIsLoading] = useState(false)
 
     const loginSubmitHandler=async (e:FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         if (!session){
-            const encodedEmail = encodeURIComponent(email)
+            setIsLoading(true)
             const result = await signIn('nodemailer',{email, redirect:false, redirectTo:'/'})
+            const encodedEmail = encodeURIComponent(email)
             if (result?.ok){
                 router.push(`/verify?email=${encodedEmail}`)
             } else{
                 alert('failed sending magic link')
             }
+            
+            setTimeout(()=>{
+                setIsLoading(false)
+            },200)
 
+
+            
         } else{
             await signOut();
         }
@@ -28,6 +36,10 @@ export default function Login(){
     
 
     if (status==='loading'){
+        return <span>loading</span>
+    }
+
+    if (isLoading){
         return <span>loading</span>
     }
 
