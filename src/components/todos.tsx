@@ -10,7 +10,7 @@ import CompletedTodos from "./completed-todos";
 
 export default function Todos() {
   const { data: todos, isLoading, isError } = api.todo.all.useQuery();
-    const trpc = api.useUtils();
+  const trpc = api.useUtils();
 
   const { mutate } = api.todo.create.useMutation({
     onSettled: async () => {
@@ -107,14 +107,13 @@ export default function Todos() {
     <div>
       <CreateTodo handler={createTodo} />
       <div className="mt-10 mb-5 flex flex-row items-center justify-between">
-        {todos?.length?<span className="text-lgpublic font-bold">{`My Tasks (${listNotDoneTodos?.length})`}</span>:''}
-        {listDoneTodos?.length ? (
-          <span className="text-neutral text-sm md:text-base">{`${listDoneTodos?.length} completed`}</span>
+        {todos?.length ? (
+          <span className="text-lg font-bold">{`My Tasks (${listNotDoneTodos?.length})`}</span>
         ) : (
           ""
         )}
       </div>
-      <div className="relative max-h-[calc(100vh-350px)] overflow-y-auto lg:max-h-[calc(100vh-300px)]">
+      <div className="relative overflow-y-auto max-h-[30dvh]">
         {listNotDoneTodos?.length ? (
           <ul>
             {listNotDoneTodos.map((todo) => {
@@ -129,16 +128,28 @@ export default function Todos() {
             })}
           </ul>
         ) : (
-          <span className="text-neutral mt-20 block text-center text-lg">
-            No tasks yet. Add one to get started!
+          <span
+            className={` ${
+              listDoneTodos?.length
+                ? "text-neutral block"
+                : "text-neutral block text-center text-lg"
+            } select-none`}
+          >
+            {listDoneTodos?.length
+              ? "No incomplete tasks"
+              : " No tasks yet. Add one to get started!"}
           </span>
         )}
       </div>
-      <CompletedTodos
-        todo={listDoneTodos}
-        toggleDone={toggleDone}
-        deleteTodo={deleteTodo}
-      />
+      {listDoneTodos?.length ? (
+        <CompletedTodos
+          todo={listDoneTodos}
+          toggleDone={toggleDone}
+          deleteTodo={deleteTodo}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

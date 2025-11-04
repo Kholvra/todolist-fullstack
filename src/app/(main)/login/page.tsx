@@ -44,7 +44,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex size-full flex-col items-center md:justify-center text-center">
+    <div className="flex size-full flex-col items-center mt-20 md:justify-center md:mt-0 text-center">
       <h1 className="mb-2 text-2xl md:text-4xl font-bold">Sign In</h1>
       <span className="text-sm md:text-base text-neutral mb-7">Use your email to continue</span>
       <form
