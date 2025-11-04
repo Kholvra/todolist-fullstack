@@ -7,6 +7,7 @@ import { type ChangeEvent, type FormEvent, useState } from "react";
 import { todoInput } from "@/types/todo-type";
 import LoadingScreen from "./loading";
 import { toast } from "sonner";
+import CompletedTodos from "./completed-todos";
 
 export default function Todos() {
   const { data: todos, isLoading, isError } = api.todo.all.useQuery();
@@ -76,7 +77,7 @@ export default function Todos() {
   });
 
   if (isLoading) {
-    return <LoadingScreen />;
+    return <LoadingScreen/>
   }
 
   if (isError) {
@@ -126,20 +127,15 @@ export default function Todos() {
       />
       <div className="mt-10 mb-5 flex flex-row items-center justify-between">
         {todos?.length ? (
-          <span className="text-lgpublic font-bold">{`My Tasks (${listNotDoneTodos?.length})`}</span>
-        ) : (
-          ""
-        )}
-        {listDoneTodos?.length ? (
-          <span className="text-neutral text-sm md:text-base">{`${listDoneTodos?.length} completed`}</span>
+          <span className="text-lg font-bold">{`My Tasks (${listNotDoneTodos?.length})`}</span>
         ) : (
           ""
         )}
       </div>
-      <div className="relative h-[65vh] overflow-y-auto">
-        {todos?.length ? (
+      <div className="relative overflow-y-auto max-h-[30dvh]">
+        {listNotDoneTodos?.length ? (
           <ul>
-            {todos.map((todo) => {
+            {listNotDoneTodos.map((todo) => {
               return (
                 <Todo
                   key={todo.id}
@@ -151,11 +147,28 @@ export default function Todos() {
             })}
           </ul>
         ) : (
-          <span className="text-neutral mt-20 block text-center text-lg">
-            No tasks yet. Add one to get started!
+          <span
+            className={` ${
+              listDoneTodos?.length
+                ? "text-neutral block"
+                : "text-neutral block text-center text-lg"
+            } select-none`}
+          >
+            {listDoneTodos?.length
+              ? "No incomplete tasks"
+              : " No tasks yet. Add one to get started!"}
           </span>
         )}
       </div>
+      {listDoneTodos?.length ? (
+        <CompletedTodos
+          todo={listDoneTodos}
+          toggleDone={toggleDone}
+          deleteTodo={deleteTodo}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 }
