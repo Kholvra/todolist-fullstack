@@ -43,13 +43,13 @@ export const authConfig = {
       },
       from: process.env.EMAIL_FROM ?? "default@default.com",
       
-      ...(process.env.NODE_ENV !== "production"
-        ? {
-            sendVerificationRequest({ url }) {
-              console.log("Login Link", url);
-            },
-          }
-        : {}),
+      // ...(process.env.NODE_ENV !== "production"
+      //   ? {
+      //       sendVerificationRequest({ url }) {
+      //         console.log("Login Link", url);
+      //       },
+      //     }
+      //   : {}),
     }),
     /**
      * ...add more providers here.
