@@ -18,6 +18,7 @@ export default function Login() {
   const loginSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!session) {
+      if (!email) return
       setIsLoading(true);
       const result = await signIn("nodemailer", {
         email,
