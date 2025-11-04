@@ -4,6 +4,7 @@ import { useEffect, useState, type FormEvent } from "react";
 import { signIn, useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import LoadingScreen from "@/components/loading";
+import { toast } from "sonner";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -18,7 +19,10 @@ export default function Login() {
   const loginSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!session) {
-      if (!email) return
+      if (!email) {
+        toast.error("Please fill the email input");
+        return;
+      }
       setIsLoading(true);
       const result = await signIn("nodemailer", {
         email,
@@ -29,7 +33,9 @@ export default function Login() {
       if (result?.ok) {
         router.push(`/verify?email=${encodedEmail}`);
       } else {
-        alert("failed sending magic link");
+        toast.error(
+          "Failed to send login link. Please ensure the email is valid and try again.",
+        );
       }
     } else {
       await signOut();
@@ -80,9 +86,13 @@ export default function Login() {
           {!session ? "Sign In" : "Sign Out"}
         </button>
       </form>
-      {!session?<span className="text-neutral mt-7 text-sm md:text-base">
-        We&apos;ll send a login link to your email
-      </span>:''}
+      {!session ? (
+        <span className="text-neutral mt-7 text-sm md:text-base">
+          We&apos;ll send a login link to your email
+        </span>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

@@ -3,15 +3,17 @@
 import { api } from "@/trpc/react";
 import CreateTodo from "./create-todo";
 import Todo from "./todo";
-import { type ChangeEvent, type FormEvent } from "react";
+import { type ChangeEvent, type FormEvent, useState } from "react";
 import { todoInput } from "@/types/todo-type";
 import LoadingScreen from "./loading";
+import { toast } from "sonner";
 
 export default function Todos() {
   const { data: todos, isLoading, isError } = api.todo.all.useQuery();
-    const trpc = api.useUtils();
+  const trpc = api.useUtils();
+  const [newTodo, setNewTodo] = useState<string>("");
 
-    const { mutate } = api.todo.create.useMutation({
+  const { mutate } = api.todo.create.useMutation({
     onSettled: async () => {
       await trpc.todo.all.invalidate();
     },
@@ -29,6 +31,9 @@ export default function Todos() {
       });
       return { previousData };
     },
+    onError: () => {
+      toast.error("Failed to add new task. Please try again.");
+    },
   });
   const { mutate: mutateToggle } = api.todo.toggle.useMutation({
     onSettled: async () => {
@@ -44,6 +49,9 @@ export default function Todos() {
         });
       });
       return { previousData };
+    },
+    onError: () => {
+      toast.error("Failed to update task status. Please try again.");
     },
   });
 
@@ -62,24 +70,31 @@ export default function Todos() {
         });
       });
     },
+    onError: () => {
+      toast.error("Failed to delete task. Please try again.");
+    },
   });
 
   if (isLoading) {
-    return <LoadingScreen/>
+    return <LoadingScreen />;
   }
 
   if (isError) {
-    return <span>ERROR FETCHING</span>;
+    toast.error(
+      "Failed to load tasks. Please check your internet connection and try reloading the page.",
+    );
+    return "";
   }
 
   const createTodo = (e: FormEvent<HTMLFormElement>, newTodo: string) => {
     e.preventDefault();
     const result = todoInput.safeParse(newTodo);
     if (!result.success) {
-      alert("type error");
+      toast.error("Task cannot be empty and must be 50 characters or less.");
       return;
     }
     mutate(newTodo);
+    setNewTodo("");
   };
 
   const toggleDone = (e: ChangeEvent<HTMLInputElement>, id: string) => {
@@ -104,9 +119,17 @@ export default function Todos() {
 
   return (
     <div>
-      <CreateTodo handler={createTodo} />
+      <CreateTodo
+        handler={createTodo}
+        newTodo={newTodo}
+        setNewTodo={setNewTodo}
+      />
       <div className="mt-10 mb-5 flex flex-row items-center justify-between">
-        {todos?.length?<span className="text-lgpublic font-bold">{`My Tasks (${listNotDoneTodos?.length})`}</span>:''}
+        {todos?.length ? (
+          <span className="text-lgpublic font-bold">{`My Tasks (${listNotDoneTodos?.length})`}</span>
+        ) : (
+          ""
+        )}
         {listDoneTodos?.length ? (
           <span className="text-neutral text-sm md:text-base">{`${listDoneTodos?.length} completed`}</span>
         ) : (

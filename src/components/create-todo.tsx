@@ -1,31 +1,38 @@
-import { useState, type FormEvent } from "react";
+import React, { type FormEvent } from "react";
 import { FiPlus } from "react-icons/fi";
 
 interface CreateTodoProps {
   handler: (e: FormEvent<HTMLFormElement>, newTodo: string) => void;
+  newTodo: string;
+  setNewTodo: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export default function CreateTodo({ handler }: CreateTodoProps) {
-  const [newTodo, setNewTodo] = useState("");
-
+export default function CreateTodo({
+  handler,
+  newTodo,
+  setNewTodo,
+}: CreateTodoProps) {
   return (
     <form
       action=""
       onSubmit={(e) => {
         handler(e, newTodo);
-        setNewTodo("");
       }}
       className="flex"
     >
       <input
         type="text"
-        className="grow py-4 px-4 mr-2 border border-neutral-400/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-neutral-400/50 transition duration-500 ease-in-out shadow-xs"
+        className="mr-2 grow rounded-lg border border-neutral-400/30 px-4 py-4 shadow-xs transition duration-500 ease-in-out focus:ring-2 focus:ring-neutral-400/50 focus:outline-none"
         placeholder="What do you want to do?"
         value={newTodo}
         onChange={(e) => setNewTodo(e.target.value)}
       />
-      <button type="submit" className={`flex flex-row items-center gap-2 rounded-lg px-3 py-1 bg-black text-white ${newTodo?.length>0?'opacity-100':'opacity-50'} transition duration-200 cursor-pointer`}>
-        <FiPlus className="text-white"/><span>Add</span>
+      <button
+        type="submit"
+        className={`flex flex-row items-center gap-2 rounded-lg bg-black px-3 py-1 text-white ${newTodo?.length > 0 ? "opacity-100" : "opacity-50"} cursor-pointer transition duration-200`}
+      >
+        <FiPlus className="text-white" />
+        <span>Add</span>
       </button>
     </form>
   );

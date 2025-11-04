@@ -6,6 +6,7 @@ import { Geist } from "next/font/google";
 import { TRPCReactProvider } from "@/trpc/react";
 import PageWrapper from "@/components/page-wrapper";
 import { SessionProvider } from "next-auth/react";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Todo List",
@@ -27,6 +28,7 @@ export default function RootLayout({
         <TRPCReactProvider>
           <SessionProvider>
             <PageWrapper>{children}</PageWrapper>
+            <Toaster richColors/>
           </SessionProvider>
         </TRPCReactProvider>
       </body>
