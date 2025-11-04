@@ -1,15 +1,10 @@
 import { MdMarkEmailRead } from "react-icons/md";
 
 interface VerifyProps {
-  searchParams: Promise<{
-    email?: string;
-  }>;
+    email: string;
 }
 
-export default async function Verify({ searchParams }: VerifyProps) {
-  const params = await searchParams;
-  const email = params.email;
-
+export default function Verify({ email }: VerifyProps) {
   if (!email) {
     return (
       <div className="flex size-full flex-col items-center justify-center">
@@ -18,15 +13,13 @@ export default async function Verify({ searchParams }: VerifyProps) {
     );
   }
 
-  const decodedEmail =  decodeURIComponent(email)
-
 
   return (
     <div className="flex size-full flex-col items-center mt-20 md:justify-center md:mt-0 text-center">
         <MdMarkEmailRead className="size-30"/>
       <h1 className="text-4xl font-bold my-5"> Check Your Email</h1>
       <span className="text-neutral">We&apos;ve sent a sign in link to:</span>
-      <span className="text-lg font-bold">{decodedEmail}</span>
+      <span className="text-lg font-bold">{email}</span>
 
       <div className="text-center">
         <p className="text-neutral mt-5">
