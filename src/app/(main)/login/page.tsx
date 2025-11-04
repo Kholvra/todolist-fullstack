@@ -51,7 +51,7 @@ export default function Login() {
   }
 
   return (
-    <div className="flex size-full flex-col items-center text-center md:justify-center">
+    <div className="flex size-full flex-col items-center text-center mt-20 md:mt-0 md:justify-center">
       <h1 className="mb-2 text-2xl font-bold md:text-4xl">
         {!session ? "Sign In" : "Sign Out"}
       </h1>
