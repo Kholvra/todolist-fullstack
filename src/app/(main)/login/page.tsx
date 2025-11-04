@@ -18,6 +18,7 @@ export default function Login() {
   const loginSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!session) {
+      if (!email) return
       setIsLoading(true);
       const result = await signIn("nodemailer", {
         email,
@@ -36,17 +37,21 @@ export default function Login() {
   };
 
   if (status === "loading") {
-    return <LoadingScreen/>
+    return <LoadingScreen />;
   }
 
   if (isLoading) {
-    return <LoadingScreen/>
+    return <LoadingScreen />;
   }
 
   return (
-    <div className="flex size-full flex-col items-center md:justify-center text-center">
-      <h1 className="mb-2 text-2xl md:text-4xl font-bold">Sign In</h1>
-      <span className="text-sm md:text-base text-neutral mb-7">Use your email to continue</span>
+    <div className="flex size-full flex-col items-center text-center md:justify-center">
+      <h1 className="mb-2 text-2xl font-bold md:text-4xl">
+        {!session ? "Sign In" : "Sign Out"}
+      </h1>
+      <span className="text-neutral mb-7 text-sm md:text-base">
+        {!session ? "Use your email to continue" : "You already Sign In"}
+      </span>
       <form
         action=""
         className="flex w-full max-w-100 flex-col justify-center gap-3"
@@ -60,18 +65,24 @@ export default function Login() {
             onChange={(e) => setEmail(e.target.value)}
           />
         ) : (
-          <span>You already Sign In</span>
+          ""
+          // <button
+          // onClick={()=>router.push(`/`)}
+          //   className={`rounded-lg bg-black p-2 py-2 ${email.length > 0 ? "opacity-100" : "opacity-50"} cursor-pointer text-base text-white transition duration-300 md:text-lg`}
+          // >
+          //   Go Back
+          // </button>
         )}
         <button
           type="submit"
-          className={`rounded-lg bg-black p-2 py-2 ${email.length > 0 ? "opacity-100" : "opacity-50"} text-base md:text-lg text-white transition duration-300 cursor-pointer`}
+          className={`rounded-lg bg-black p-2 py-2 ${email.length > 0 ? "opacity-100" : "opacity-50"} cursor-pointer text-base text-white transition duration-300 md:text-lg`}
         >
           {!session ? "Sign In" : "Sign Out"}
         </button>
       </form>
-      <span className="text-sm md:text-base text-neutral mt-7">
+      {!session?<span className="text-neutral mt-7 text-sm md:text-base">
         We&apos;ll send a login link to your email
-      </span>
+      </span>:''}
     </div>
   );
 }
