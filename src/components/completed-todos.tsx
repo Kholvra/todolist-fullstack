@@ -7,13 +7,13 @@ import { type ChangeEvent } from "react";
 import Todo from "@/components/todo";
 
 
-interface IncompleteTodosProps{
+interface CompletedTodosProps{
     todo: todoAll[]|undefined
     toggleDone: (e: ChangeEvent<HTMLInputElement>, id: string) => void
     deleteTodo: (id: string) => void
 }
 
-export default function IncompleteTodos({todo,toggleDone,deleteTodo}:IncompleteTodosProps) {
+export default function CompletedTodos({todo,toggleDone,deleteTodo}:CompletedTodosProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,7 +25,7 @@ export default function IncompleteTodos({todo,toggleDone,deleteTodo}:IncompleteT
         </button>
       </Collapsible.Trigger>
       <Collapsible.CollapsibleContent>
-      <div className="max-h-[calc(100vh-350px)] overflow-y-auto lg:max-h-[calc(100vh-300px)]">
+      <div className="relative max-h-[calc(100vh-350px)] overflow-y-auto lg:max-h-[calc(100vh-300px)]">
               {todo?.length ? (
                 <ul>
                   {todo.map((todo) => {

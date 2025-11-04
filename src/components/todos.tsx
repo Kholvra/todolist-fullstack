@@ -6,7 +6,7 @@ import Todo from "./todo";
 import { type ChangeEvent, type FormEvent } from "react";
 import { todoInput } from "@/types/todo-type";
 import LoadingScreen from "./loading";
-import IncompleteTodos from "./incomplete-todos";
+import CompletedTodos from "./completed-todos";
 
 export default function Todos() {
   const { data: todos, isLoading, isError } = api.todo.all.useQuery();
@@ -114,7 +114,7 @@ export default function Todos() {
           ""
         )}
       </div>
-      <div className="relative h-[65vh] overflow-y-auto">
+      <div className="relative max-h-[calc(100vh-350px)] overflow-y-auto lg:max-h-[calc(100vh-300px)]">
         {listNotDoneTodos?.length ? (
           <ul>
             {listNotDoneTodos.map((todo) => {
@@ -134,7 +134,7 @@ export default function Todos() {
           </span>
         )}
       </div>
-      <IncompleteTodos
+      <CompletedTodos
         todo={listDoneTodos}
         toggleDone={toggleDone}
         deleteTodo={deleteTodo}
