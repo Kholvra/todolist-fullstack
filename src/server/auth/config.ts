@@ -75,5 +75,5 @@ export const authConfig = {
     signIn: "/login",
     verifyRequest: "/verify",
   },
-  trustHost: false
+  trustHost: true
 } satisfies NextAuthConfig;
