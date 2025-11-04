@@ -28,7 +28,7 @@ export default function Login() {
       const result = await signIn("nodemailer", {
         email,
         redirect: false,
-        redirectTo: "/",
+        redirectTo: "/login",
       });
       if (result?.ok) {
         setIsSubmittd(true);
