@@ -113,7 +113,7 @@ export default function Todos() {
           ""
         )}
       </div>
-      <div>
+      <div className="relative h-[65vh] overflow-y-auto">
         {todos?.length ? (
           <ul>
             {todos.map((todo) => {
