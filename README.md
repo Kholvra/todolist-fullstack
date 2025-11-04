@@ -1,29 +1,82 @@
-# Create T3 App
+# Todolist Fullstack (T3 Stack)
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A full-stack todo list application built with the T3 stack (Next.js, tRPC, Prisma, Tailwind). This project is my first fullstack application, featuring secure authentication, a typesafe API, and optimistic UI updates for a fast, modern user experience.
 
-## What's next? How do I make an app with this?
+*(Sangat disarankan tambahkan screenshot atau GIF demo di sini!)*
+``
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## ✨ Features
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+* **Secure User Authentication**: Sign-up and login functionality using NextAuth.js.
+* **Full CRUD Operations**: Users can create, read, update, and delete their own private todos.
+* **Optimistic UI Updates**: The interface updates instantly for a seamless user experience, without waiting for the server response.
+* **Typesafe API**: End-to-end typesafety between the client and server guaranteed by tRPC and Zod.
+* **Task Filtering**: Clean separation between pending and completed tasks.
+* **Responsive Design**: Fully responsive layout for desktop, tablet, and mobile.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## 🛠️ Tech Stack
 
-## Learn More
+* **[Next.js](https://nextjs.org/)**: React framework
+* **[tRPC](https://trpc.io/)**: Typesafe API layer
+* **[Prisma](https://www.prisma.io/)**: Next-generation ORM
+* **[NextAuth.js](https://next-auth.js.org/)**: Authentication
+* **[Tailwind CSS](https://tailwindcss.com/)**: Utility-first CSS framework
+* **[Zod](https://zod.dev/)**: Schema declaration and validation
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## 🚀 Getting Started
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+To get a local copy up and running, follow these steps.
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### Prerequisites
 
-## How do I deploy this?
+* Node.js & npm
+* PostgreSQL database
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+### Installation
+
+1.  Clone the repo:
+    ```sh
+    git clone [https://github.com/your_username_/Project-Name.git](https://github.com/your_username_/Project-Name.git)
+    ```
+2.  Install NPM packages:
+    ```sh
+    npm install
+    ```
+3.  Create a `.env` file and add the required environment variables (see `.env.example`).
+4.  Start the development server:
+    ```sh
+    npm run dev
+    ```
+
+## Environment Variables
+
+You will need to add the following variables to your `.env` file:
+
+* `DATABASE_URL`: Your PostgreSQL connection string.
+* `NEXTAUTH_SECRET`: A random secret key for NextAuth.js.
+* `NEXTAUTH_URL`: The base URL of your application (e.g., `http://localhost:3000`).
+
+## Database
+
+This project uses PostgreSQL.
+
+1.  If you have a local `start-database.sh` script (from the original T3 template), run it:
+    ```sh
+    ./start-database.sh
+    ```
+2.  Apply the database schema:
+    ```sh
+    npm run db:push
+    ```
+
+## 📜 Available Scripts
+
+| Script | Description |
+| --- | --- |
+| `npm run dev` | Runs the app in development mode. |
+| `npm run build` | Builds the app for production. |
+| `npm run start` | Starts the production server. |
+| `npm run lint` | Lints the code. |
+| `npm run format:write` | Formats the code. |
+| `npm run db:push` | Pushes the schema to the database. |
+| `npm run db:studio` | Starts Prisma Studio (GUI for your db). |
