@@ -3,21 +3,14 @@
 import { api } from "@/trpc/react";
 import CreateTodo from "./create-todo";
 import Todo from "./todo";
-import { useEffect, type ChangeEvent, type FormEvent } from "react";
+import { type ChangeEvent, type FormEvent } from "react";
 import { todoInput } from "@/types/todo-type";
 import LoadingScreen from "./loading";
 import IncompleteTodos from "./incomplete-todos";
 
 export default function Todos() {
   const { data: todos, isLoading, isError } = api.todo.all.useQuery();
-  const trpc = api.useUtils();
-
-  useEffect(() => {
-    document.body.classList.add("overflow-hidden");
-    return () => {
-      document.body.classList.remove("overflow-hidden");
-    };
-  }, []);
+    const trpc = api.useUtils();
 
   const { mutate } = api.todo.create.useMutation({
     onSettled: async () => {
@@ -113,19 +106,15 @@ export default function Todos() {
   return (
     <div>
       <CreateTodo handler={createTodo} />
-      <div className="mt-10 mb-5 flex flex-row items-center justify-between overflow-hidden">
-        {todos?.length ? (
-          <span className="text-lgpublic font-bold">{`My Tasks (${listNotDoneTodos?.length})`}</span>
-        ) : (
-          ""
-        )}
+      <div className="mt-10 mb-5 flex flex-row items-center justify-between">
+        {todos?.length?<span className="text-lgpublic font-bold">{`My Tasks (${listNotDoneTodos?.length})`}</span>:''}
         {listDoneTodos?.length ? (
           <span className="text-neutral text-sm md:text-base">{`${listDoneTodos?.length} completed`}</span>
         ) : (
           ""
         )}
       </div>
-      <div className="max-h-[calc(100vh-350px)] overflow-y-auto lg:max-h-[calc(100vh-300px)]">
+      <div className="relative h-[65vh] overflow-y-auto">
         {listNotDoneTodos?.length ? (
           <ul>
             {listNotDoneTodos.map((todo) => {
