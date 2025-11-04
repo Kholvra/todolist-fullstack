@@ -2,8 +2,6 @@
 
 A full-stack todo list application built with the T3 stack (Next.js, tRPC, Prisma, Tailwind). This project is my first fullstack application, featuring secure authentication, a typesafe API, and optimistic UI updates for a fast, modern user experience.
 
-*(Sangat disarankan tambahkan screenshot atau GIF demo di sini!)*
-``
 
 ## ✨ Features
 
@@ -48,13 +46,6 @@ To get a local copy up and running, follow these steps.
     npm run dev
     ```
 
-## Environment Variables
-
-You will need to add the following variables to your `.env` file:
-
-* `DATABASE_URL`: Your PostgreSQL connection string.
-* `NEXTAUTH_SECRET`: A random secret key for NextAuth.js.
-* `NEXTAUTH_URL`: The base URL of your application (e.g., `http://localhost:3000`).
 
 ## Database
 
