@@ -11,7 +11,11 @@ export default function CreateTodo() {
     <form
       action=""
       onSubmit={(e) => {
-        createTodo(e, newTodo);
+        const {status, mutate} = createTodo(e,newTodo);
+        if (status){
+          mutate()
+          setNewTodo('')
+        } //if after the safe parse check success then clear the input
       }}
       className="flex"
     >

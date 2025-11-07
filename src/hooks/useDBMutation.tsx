@@ -1,13 +1,12 @@
-'use client'
+"use client";
 
-import { api } from "@/trpc/react"
+import { api } from "@/trpc/react";
 import { toast } from "sonner";
-import { type ChangeEvent, type FormEvent} from "react";
+import { type ChangeEvent, type FormEvent } from "react";
 import { todoInput } from "@/types/todo-type";
 
-
-export default function useDBMutation(){
-const trpc = api.useUtils();
+export default function useDBMutation() {
+  const trpc = api.useUtils();
 
   const { mutate } = api.todo.create.useMutation({
     onSettled: async () => {
@@ -71,57 +70,62 @@ const trpc = api.useUtils();
     },
   });
 
-
-const {mutate:mutateEdit} = api.todo.edit.useMutation({
-    onSettled: async()=>{
-      await trpc.todo.all.invalidate()
+  const { mutate: mutateEdit } = api.todo.edit.useMutation({
+    onSettled: async () => {
+      await trpc.todo.all.invalidate();
     },
-    onMutate: async({id,text})=>{
-      await trpc.todo.all.cancel()
-      const previousData = trpc.todo.all.getData()
-      trpc.todo.all.setData(undefined,(prev)=>{
-        return prev?.map((todo)=>{
-          if (todo.id===id){
-            return {...todo, text}
+    onMutate: async ({ id, text }) => {
+      await trpc.todo.all.cancel();
+      const previousData = trpc.todo.all.getData();
+      trpc.todo.all.setData(undefined, (prev) => {
+        return prev?.map((todo) => {
+          if (todo.id === id) {
+            return { ...todo, text };
           }
-          return todo
-        })
-      })
-      return previousData
+          return todo;
+        });
+      });
+      return previousData;
     },
-    onError: ()=>{
-      toast.error('Failed to edit task. Please try again.')
-    }
-  })
+    onError: () => {
+      toast.error("Failed to edit task. Please try again.");
+    },
+  });
 
-  function createTodo(e: FormEvent<HTMLFormElement>, newTodo: string){
+  function createTodo(e: FormEvent<HTMLFormElement>, newTodo: string) {
     e.preventDefault();
     const result = todoInput.safeParse(newTodo);
     if (!result.success) {
       toast.error("Task cannot be empty and must be 50 characters or less.");
-      return;
+      return {
+        status: false,
+        mutate: () => {
+          return;
+          },
+      };
     }
-    mutate(newTodo);
-  };
+    return {
+      status: true,
+      mutate: () => mutate(newTodo),
+    };
+  }
 
-    function toggleDone  (e: ChangeEvent<HTMLInputElement>, id: string) {
+  function toggleDone(e: ChangeEvent<HTMLInputElement>, id: string) {
     mutateToggle({ id, done: e.target.checked });
-  };
+  }
 
-  function deleteTodo (id: string) {
+  function deleteTodo(id: string) {
     mutateDelete(id);
-  };
+  }
 
+  function editMutation(id: string, text: string) {
+    mutateEdit({ id, text });
+  }
 
-  function editMutation(id:string,text:string){
-    mutateEdit({id,text})
-}
-
-return {
+  return {
     createTodo,
     toggleDone,
     deleteTodo,
     editMutation,
-}
-
+  };
 }
