@@ -2,7 +2,6 @@
 
 import { api } from "@/trpc/react";
 import CreateTodo from "./create-todo";
-import { useState } from "react";
 import LoadingScreen from "@/components/loading";
 import { toast } from "sonner";
 import CompletedTodos from "./completed-todos";
@@ -10,7 +9,6 @@ import IncompleteTodos from "./incomplete-todos";
 
 export default function Todos() {
   const { data: todos, isLoading, isError } = api.todo.all.useQuery();
-  const [newTodo, setNewTodo] = useState<string>("");
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -37,7 +35,7 @@ export default function Todos() {
 
   return (
     <div>
-      <CreateTodo newTodo={newTodo} setNewTodo={setNewTodo} />
+      <CreateTodo/>
       <div className="mt-10 mb-5 flex flex-row items-center justify-between">
         {todos?.length ? (
           <span className="text-lg font-bold">{`My Tasks (${listNotDoneTodos?.length})`}</span>

@@ -1,18 +1,11 @@
 import React from "react";
 import { FiPlus } from "react-icons/fi";
 import useDBMutation from "@/hooks/useDBMutation";
+import { useState } from "react";
 
-interface CreateTodoProps {
-  newTodo: string;
-  setNewTodo: React.Dispatch<React.SetStateAction<string>>;
-}
-
-export default function CreateTodo({
-  newTodo,
-  setNewTodo,
-}: CreateTodoProps) {
-
-  const {createTodo} = useDBMutation()
+export default function CreateTodo() {
+  const [newTodo, setNewTodo] = useState<string>("");
+  const { createTodo } = useDBMutation();
 
   return (
     <form
