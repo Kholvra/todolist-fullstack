@@ -1,22 +1,24 @@
-import React, { type FormEvent } from "react";
+import React from "react";
 import { FiPlus } from "react-icons/fi";
+import useDBMutation from "@/hooks/useDBMutation";
 
 interface CreateTodoProps {
-  handler: (e: FormEvent<HTMLFormElement>, newTodo: string) => void;
   newTodo: string;
   setNewTodo: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function CreateTodo({
-  handler,
   newTodo,
   setNewTodo,
 }: CreateTodoProps) {
+
+  const {createTodo} = useDBMutation()
+
   return (
     <form
       action=""
       onSubmit={(e) => {
-        handler(e, newTodo);
+        createTodo(e, newTodo);
       }}
       className="flex"
     >

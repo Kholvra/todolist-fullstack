@@ -1,5 +1,5 @@
 import Header from "@/components/header";
-import Todos from "@/components/todos";
+import Todos from "@/components/todos-component/todos";
 import { auth } from "@/server/auth";
 import { redirect } from "next/navigation";
 
