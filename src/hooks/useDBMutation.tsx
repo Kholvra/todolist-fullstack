@@ -119,7 +119,18 @@ export default function useDBMutation() {
   }
 
   function editMutation(id: string, text: string) {
-    mutateEdit({ id, text });
+    const result = todoInput.safeParse(text)
+    if (!result.success){
+      toast.error("Task cannot be empty and must be 50 characters or less.")
+      return{
+        status: false,
+        mutate: ()=>{return},
+      }
+    }
+    return{
+      status: true,
+      mutate: ()=> mutateEdit({ id, text })
+    }
   }
 
   return {

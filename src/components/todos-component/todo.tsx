@@ -2,6 +2,7 @@ import useDBMutation from "@/hooks/useDBMutation";
 import { type todoAll } from "@/types/todo-type";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
+import EditTodoModal from "../edit-todo-modal";
 
 interface TodoProps {
   todo: todoAll;
@@ -36,12 +37,15 @@ export default function Todo({ todo }: TodoProps) {
           {text}
         </span>
       </div>
-      <button
-        className="hover:bg-danger-100 mx-2 cursor-pointer rounded-lg p-2 transition duration-100"
-        onClick={() => deleteTodo(id)}
-      >
-        <FaRegTrashAlt className="text-danger-700" />
-      </button>
+      <div className="flex flex-row items-center gap-3">
+        <button
+          className="hover:bg-danger-100 mx-2 cursor-pointer rounded-lg p-2 transition duration-100"
+          onClick={() => deleteTodo(id)}
+        >
+          <FaRegTrashAlt className="text-danger-700" />
+        </button>
+        <EditTodoModal todo={todo}/>
+      </div>
     </li>
   );
 }
