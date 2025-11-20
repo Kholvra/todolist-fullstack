@@ -1,6 +1,18 @@
 @import "tailwindcss";
 
 
+.dialog-overlay{
+  @apply fixed inset-0 bg-black/50;
+}
+
+.dialog-content{
+  @apply fixed top-1/2 left-1/2 max-h-[85vh] w-[90vw] max-w-[500px] -translate-x-1/2 -translate-y-1/2 rounded-md bg-white p-[25px] shadow-[var(--shadow-6)] focus:outline-none;
+}
+
+.dialog-tittle{
+  @apply text-xl font-semibold
+}
+
 @theme {
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -46,9 +58,6 @@
 --color-success-800: #046144;
 --color-success-900: #045039;
 --color-success-950: #012d22;
-
-
-
 }
 
 

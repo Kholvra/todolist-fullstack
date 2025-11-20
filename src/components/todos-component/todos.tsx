@@ -6,6 +6,7 @@ import LoadingScreen from "@/components/loading";
 import { toast } from "sonner";
 import CompletedTodos from "./completed-todos";
 import IncompleteTodos from "./incomplete-todos";
+import ClearAllModal from "../modal/clear-todo-all-modal";
 
 export default function Todos() {
   const { data: todos, isLoading, isError } = api.todo.all.useQuery();
@@ -58,7 +59,7 @@ export default function Todos() {
             : "No tasks yet. Add one to get started!"}
         </span>
       )}
-      {listDoneTodos?.length ? <CompletedTodos todo={listDoneTodos} /> : ""}
+      {listDoneTodos?.length ? <CompletedTodos todo={listDoneTodos}/>  : ""}
     </div>
   );
 }

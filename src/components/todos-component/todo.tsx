@@ -2,7 +2,7 @@ import useDBMutation from "@/hooks/useDBMutation";
 import { type todoAll } from "@/types/todo-type";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
-import EditTodoModal from "../edit-todo-modal";
+import EditTodoModal from "../modal/edit-todo-modal";
 
 interface TodoProps {
   todo: todoAll;
