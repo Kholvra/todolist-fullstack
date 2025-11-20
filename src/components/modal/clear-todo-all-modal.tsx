@@ -6,12 +6,12 @@ import type { todoAll } from "@/types/todo-type";
 import { useState } from "react";
 
 interface ClearAllModalProps {
-  todo: todoAll[]|undefined;
+  todo: todoAll[] | undefined;
 }
 
 export default function ClearAllModal({ todo }: ClearAllModalProps) {
-  const {clearCompleted}= useDBMutation();
-  const [open,setOpen] = useState(false)
+  const { clearCompleted } = useDBMutation();
+  const [open, setOpen] = useState(false);
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
@@ -32,13 +32,16 @@ export default function ClearAllModal({ todo }: ClearAllModalProps) {
               </p>
               <div className="flex justify-end gap-4">
                 <Dialog.Close asChild>
-                  <button className="rounded-lg border border-neutral-100 px-4 py-2">
+                  <button className="cursor-pointer rounded-lg border border-neutral-100 px-4 py-2">
                     Cancel
                   </button>
                 </Dialog.Close>
                 <SubmitButton
                   className="px-4 text-sm font-medium"
-                  onClick={()=>{clearCompleted(); setOpen(false)}}
+                  onClick={() => {
+                    clearCompleted();
+                    setOpen(false);
+                  }}
                 >
                   Clear
                 </SubmitButton>
