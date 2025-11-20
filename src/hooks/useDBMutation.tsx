@@ -96,6 +96,20 @@ export default function useDBMutation() {
     onSettled: async () =>{
       await trpc.todo.all.invalidate()
     },
+    onMutate: async()=>{
+      await trpc.todo.all.cancel()
+      const previousData = trpc.todo.all.getData()
+      trpc.todo.all.setData(undefined, (prev)=>{
+        return prev?.filter((todo)=>{
+          if (todo.done===false){
+            return todo
+          }
+        })
+      })
+      return previousData
+    }, onError: ()=>{
+      toast.error("Failed to clear completed task. Please try again.")
+    }
   })
 
   function createTodo(e: FormEvent<HTMLFormElement>, newTodo: string) {
