@@ -52,9 +52,9 @@ export default function EditTodoModal({ todo }: EditTodoModalProps) {
               name=""
               id=""
               onChange={(e) => setNewText(e.target.value)}
-              className="mt-5 grow rounded-lg border border-neutral-400/30 px-4 py-2 shadow-xs transition duration-500 ease-in-out focus:ring-2 focus:ring-neutral-400/50 focus:outline-none"
+              className="grow rounded-lg border border-neutral-100 px-4 py-2 shadow-xs transition duration-500 ease-in-out focus:ring-2 focus:ring-neutral-400/50 focus:outline-none"
             />
-            <div className="flex gap-5 self-end">
+            <div className="flex gap-4 self-end">
               <Dialog.Close asChild>
                 <button className="cursor-pointer rounded-lg border border-neutral-400/30 px-4 py-2 text-sm font-medium">
                   Cancel
@@ -63,6 +63,7 @@ export default function EditTodoModal({ todo }: EditTodoModalProps) {
               <SubmitButton
                 inputField={newText}
                 className="px-4 text-sm font-medium"
+                type="submit"
               >
                 Save
               </SubmitButton>

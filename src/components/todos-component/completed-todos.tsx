@@ -23,7 +23,7 @@ export default function CompletedTodos({ todo }: CompletedTodosProps) {
             <span className="text-lg font-bold">{`Completed (${todo?.length})`}</span>
           </button>
         </Collapsible.Trigger>
-        <ClearAllModal/>
+        <ClearAllModal todo={todo}/>
       </div>
       <Collapsible.CollapsibleContent>
         <div className="relative max-h-[30dvh] overflow-y-auto">

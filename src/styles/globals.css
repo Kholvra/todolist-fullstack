@@ -10,7 +10,7 @@
 }
 
 .dialog-tittle{
-  @apply text-xl font-semibold
+  @apply text-xl font-semibold mb-5
 }
 
 @theme {

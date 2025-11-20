@@ -92,6 +92,12 @@ export default function useDBMutation() {
     },
   });
 
+  const {mutate: mutateClearComplete} = api.todo.clearCompleted.useMutation({
+    onSettled: async () =>{
+      await trpc.todo.all.invalidate()
+    },
+  })
+
   function createTodo(e: FormEvent<HTMLFormElement>, newTodo: string) {
     e.preventDefault();
     const result = todoInput.safeParse(newTodo);
@@ -133,10 +139,15 @@ export default function useDBMutation() {
     }
   }
 
+  function clearCompleted(){
+    mutateClearComplete();
+  }
+
   return {
     createTodo,
     toggleDone,
     deleteTodo,
     editMutation,
+    clearCompleted,
   };
 }

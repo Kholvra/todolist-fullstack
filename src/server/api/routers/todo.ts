@@ -62,5 +62,13 @@ export const todoRouter = createTRPCRouter({
           text
         }
       })
+    }),
+
+    clearCompleted: protectedProcedure.mutation(async({ctx})=>{
+      return ctx.db.todo.deleteMany({
+        where:{
+          done: true
+        }
+      })
     })
 });
