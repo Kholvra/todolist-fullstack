@@ -37,14 +37,14 @@ export default function Todo({ todo }: TodoProps) {
           {text}
         </span>
       </div>
-      <div className="flex flex-row items-center gap-3">
+      <div className="flex flex-row items-center">
+        <EditTodoModal todo={todo}/>
         <button
           className="hover:bg-danger-100 mx-2 cursor-pointer rounded-lg p-2 transition duration-100"
           onClick={() => deleteTodo(id)}
         >
           <FaRegTrashAlt className="text-danger-700" />
         </button>
-        <EditTodoModal todo={todo}/>
       </div>
     </li>
   );
