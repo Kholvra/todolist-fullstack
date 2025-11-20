@@ -67,7 +67,8 @@ export const todoRouter = createTRPCRouter({
     clearCompleted: protectedProcedure.mutation(async({ctx})=>{
       return ctx.db.todo.deleteMany({
         where:{
-          done: true
+          done: true,
+          userId: ctx.session.user.id
         }
       })
     })
